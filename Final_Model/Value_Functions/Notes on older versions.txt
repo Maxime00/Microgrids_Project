@@ -1,0 +1,55 @@
+sarsa v13
+2 episodes of 30 minutes, 2s action frequency
+also changed reward
+also changed so reward is mean reward over idle_iter
+noticed tile coding only tiled DISTINCT ints differently, so added conversion to action list so its tiled properly
+
+sarsav15
+20 episodes of 3 minutes, 2s action frequency
+tuned reward, it should not be positive if SoC is outside the range
+
+sarsa v 17
+20 episodes of 3 minutes, 2s action frequency
+tuned reward again
+ran it 2 hours
+
+qfit v2.2 -> overwritten by accident, rerun maybe?
+15 episodes with 1000 training samples
+wait 0,2 seconds after init for settling, then select best action, ten wait another 0,2 sec to evaluate action
+
+NOTE : second delay should be longer, probably around 2 seconds -> NOPE, makes it worse (only one battery stays within range, other goes to 0)
+
+qfit v2.3
+15 episodes with 100 training samples
+wait 0,2 seconds after init for settling, then select best action, ten wait 2secs to evaluate action ->doesn’t work, not enough samples 
+
+NAF v3 (cdqn_Microgrids_weights_v3)
+proces action to have positive values = 1 and negative = 0 (transform for environment)
+training : 15000 steps,  action frequency 100 ms
+test : works with action frequency 10 ms, 
+
+NAF v4
+ran for 1h instead of 25 minutes -> worst results 
+
+sarsa v18
+ran 2h with updated tile coding approx (more maxsize and tiling), should be more precise 
+also noticed actually have been using action instead of tile_cation in vf -> why does it work
+
+sarsav19
+ran 2h again, just changed the action so vf is now actually vf and not qf (uses action and nto tile action)
+kept 8 tilings and 32’000 maxsize
+
+sarsav20
+20 episodes of 3 minutes 2s action freq , 4 tilings now, kept tile action
+
+sarsav21
+retrained v20 for an hour
+training - always converges to 60 in SoC
+
+qfit v2.4 
+15 episodes with 1000 training samples
+wait 0,2 seconds after init for settling, then select best action, ten wait another 0,2 sec to evaluate action
+used tileaction in vf 
+
+qfit v2.5
+retrained v2.4 for an hour
